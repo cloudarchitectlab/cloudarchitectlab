@@ -1,6 +1,6 @@
 Cloud Architect Lab
 
-Project 0 – Portfolio Website & CI/CD Platform
+CAL-000 - Cloud Architect Lab Platform
 
 BUILD • AUTOMATE • SCALE
 
