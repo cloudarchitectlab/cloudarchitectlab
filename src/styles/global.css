@@ -301,3 +301,9 @@ footer {
 .card-description {
   margin: 2rem 0;
 }
+
+.brand-logo {
+  height: 42px;
+  width: auto;
+  display: block;
+}
