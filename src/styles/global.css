@@ -40,12 +40,6 @@ header {
   padding: 24px;
 }
 
-.brand {
-  color: var(--navy);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-}
-
 nav {
   display: flex;
   gap: 24px;
@@ -302,8 +296,13 @@ footer {
   margin: 2rem 0;
 }
 
-.brand-logo {
-  height: 42px;
-  width: auto;
+.brand {
   display: block;
+  line-height: 0;
+}
+
+.brand-logo {
+  display: block;
+  height: 160px;
+  width: auto;
 }
