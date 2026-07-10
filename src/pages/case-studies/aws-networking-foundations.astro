@@ -20,6 +20,22 @@ import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
   </section>
 
   <section>
+  <h2>Current Project Status</h2>
+
+  <p>
+    <strong>Current Milestone:</strong> CAL-001.02 - Route Tables
+  </p>
+
+  <p>
+    The underlying Terraform implementation includes additional networking
+    components such as security groups. This case study intentionally introduces
+    the architecture in progressive milestones so each networking concept can be
+    understood independently while accurately reflecting the deployed
+    infrastructure.
+  </p>
+</section>
+
+  <section>
     <h2>Business Scenario</h2>
 
     <p>
@@ -107,6 +123,30 @@ import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
     deployments and provides a documented foundation for future enhancements
     such as NAT Gateways, multi-AZ expansion, VPC peering, and additional
     workload tiers.
+  </p>
+</section>
+
+<section>
+  <h2>Routing Architecture</h2>
+
+  <p>
+    The network uses dedicated route tables for the public and private subnets.
+    The public route table includes a default route to the Internet Gateway,
+    allowing resources in the public subnet to reach external destinations when
+    their resource-level configuration also permits that traffic.
+  </p>
+
+  <p>
+    The private route table remains limited to local VPC routing at this stage
+    of the case study. This keeps the private subnet isolated from direct
+    internet access while establishing a foundation for a future NAT Gateway or
+    other controlled egress design.
+  </p>
+
+  <p>
+    This separation demonstrates an important AWS networking principle: subnets
+    define network boundaries, while route tables determine where traffic can be
+    directed.
   </p>
 </section>
 
