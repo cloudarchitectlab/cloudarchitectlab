@@ -9,29 +9,43 @@ import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
   level="Level 1"
 >
   <section>
-    <h2>Overview</h2>
+  <h2>Overview</h2>
 
-    <p>
-      This case study documents the design and implementation of a foundational
-      AWS networking environment built using Terraform. It explores VPC design,
-      CIDR planning, public and private subnet architecture, routing, internet
-      access, and Infrastructure as Code.
-    </p>
-  </section>
+  <p>
+    This case study documents the design, implementation, and validation of a
+    foundational AWS networking environment built with Terraform. The solution
+    establishes a dedicated Amazon VPC with public and private subnets,
+    intentional routing boundaries, internet connectivity for the public tier,
+    and resource-level security controls.
+  </p>
+
+  <p>
+    The project demonstrates a repeatable cloud architecture workflow that
+    combines Infrastructure as Code, Architecture as Code, technical
+    documentation, validation evidence, and version-controlled engineering
+    decisions.
+  </p>
+</section>
 
   <section>
   <h2>Current Project Status</h2>
 
   <p>
-    <strong>Current Milestone:</strong> CAL-001.02 - Route Tables
+    <strong>Current Published Milestone:</strong> CAL-001.02 — Route Tables
   </p>
 
   <p>
-    The underlying Terraform implementation includes additional networking
-    components such as security groups. This case study intentionally introduces
-    the architecture in progressive milestones so each networking concept can be
-    understood independently while accurately reflecting the deployed
-    infrastructure.
+    The VPC, public and private subnets, Internet Gateway, route tables, explicit
+    subnet associations, and foundational security groups have been implemented
+    through Terraform.
+  </p>
+
+  <p>
+    This case study is published progressively so each architectural concept can
+    be explained and validated independently. The current milestone focuses on
+    routing behavior and the distinction between public and private network
+    tiers, while the repository may contain supporting components required for
+    the complete deployed environment.
   </p>
 </section>
 
@@ -197,6 +211,23 @@ import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
 </section>
 
 <section>
+  <h2>Skills Demonstrated</h2>
+
+  <ul>
+    <li>Amazon VPC architecture and IPv4 CIDR planning.</li>
+    <li>Public and private subnet design.</li>
+    <li>Internet Gateway configuration and routing.</li>
+    <li>Explicit route-table and subnet associations.</li>
+    <li>Resource-level traffic control with security groups.</li>
+    <li>Terraform-based infrastructure provisioning.</li>
+    <li>Version-controlled architecture diagrams and documentation.</li>
+    <li>Cloud infrastructure validation and evidence collection.</li>
+    <li>Architecture decision documentation using ADRs.</li>
+    <li>Git-based change management and milestone delivery.</li>
+  </ul>
+</section>
+
+<section>
   <h2>Key Design Decisions</h2>
 
   <h3>Building a Dedicated VPC</h3>
@@ -317,20 +348,96 @@ import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
   <h2>Validation and Testing</h2>
 
   <p>
-    After deployment, the networking environment was validated to ensure each
-    component functioned as designed and provided a solid foundation for future
-    workloads.
+    The environment was validated through Terraform commands, Terraform output
+    values, and inspection of the deployed resources in the AWS Management
+    Console.
   </p>
 
   <ul>
-    <li>Verified successful Terraform deployment without errors.</li>
-    <li>Confirmed the VPC and subnets were created with the expected CIDR ranges.</li>
-    <li>Validated Internet Gateway attachment to the VPC.</li>
-    <li>Verified route table associations for public and private subnets.</li>
-    <li>Confirmed security groups were applied with the intended traffic rules.</li>
-    <li>Reviewed the completed topology within the AWS Management Console.</li>
-    <li>Prepared the environment for future deployment of EC2 instances and additional networking services.</li>
+    <li>
+      Ran <code>terraform fmt</code> to confirm consistent Terraform formatting.
+    </li>
+    <li>
+      Ran <code>terraform validate</code> to confirm the configuration was
+      syntactically valid and internally consistent.
+    </li>
+    <li>
+      Reviewed the Terraform execution plan before deployment.
+    </li>
+    <li>
+      Completed the Terraform deployment without resource-creation errors.
+    </li>
+    <li>
+      Confirmed the VPC and subnet CIDR ranges matched the documented design.
+    </li>
+    <li>
+      Verified the Internet Gateway was attached to the intended VPC.
+    </li>
+    <li>
+      Confirmed the public subnet was associated with the public route table.
+    </li>
+    <li>
+      Confirmed the private subnet was associated with the private route table.
+    </li>
+    <li>
+      Verified the public route table contained a
+      <code>0.0.0.0/0</code> route targeting the Internet Gateway.
+    </li>
+    <li>
+      Verified the private route table contained no direct default route to the
+      Internet Gateway.
+    </li>
+    <li>
+      Reviewed Terraform outputs and AWS resource details to confirm the
+      deployed topology matched the architecture documentation.
+    </li>
   </ul>
+
+  <p>
+    End-to-end workload connectivity testing will be added when EC2 or other
+    application resources are introduced in a later milestone.
+  </p>
+</section>
+
+<section>
+  <h2>Implementation Evidence</h2>
+
+  <p>
+    The following screenshots provide visual confirmation that the deployed AWS
+    environment matches the documented architecture and routing design.
+  </p>
+
+  <figure>
+    <img
+      src="/images/case-studies/cal-001/vpc-overview.png"
+      alt="AWS VPC overview showing the deployed networking foundation for CAL-001"
+    />
+    <figcaption>
+      Deployed VPC and subnet resources for the AWS Networking Foundations case
+      study.
+    </figcaption>
+  </figure>
+
+  <figure>
+    <img
+      src="/images/case-studies/cal-001/public-route-table.png"
+      alt="AWS public route table showing a default route to the Internet Gateway"
+    />
+    <figcaption>
+      Public route table with a <code>0.0.0.0/0</code> route targeting the
+      Internet Gateway.
+    </figcaption>
+  </figure>
+
+  <figure>
+    <img
+      src="/images/case-studies/cal-001/private-route-table.png"
+      alt="AWS private route table showing only internal VPC routing"
+    />
+    <figcaption>
+      Private route table without a direct default route to the Internet Gateway.
+    </figcaption>
+  </figure>
 </section>
 
 <section>
@@ -382,28 +489,29 @@ import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
   <h2>Future Enhancements</h2>
 
   <p>
-    This networking foundation is intentionally designed to support additional
-    cloud architecture concepts as the Cloud Architect Lab portfolio expands.
-    Future enhancements will build upon this implementation while maintaining
-    the same architectural principles and Infrastructure as Code approach.
+    Future milestones will extend this networking foundation while preserving
+    the same Infrastructure as Code, documentation, and validation workflow.
   </p>
 
   <ul>
-    <li>Deploy highly available networking across multiple Availability Zones.</li>
-
-    <li>Implement NAT Gateways for secure outbound internet access from private subnets.</li>
-
-    <li>Add EC2 workloads to demonstrate secure application deployment.</li>
-
-    <li>Implement VPC Peering between separate AWS environments.</li>
-
-    <li>Explore Transit Gateway and hybrid networking architectures.</li>
-
-    <li>Extend the architecture using IPv6 networking.</li>
-
-    <li>Integrate monitoring, logging, and security services.</li>
-
-    <li>Expand the environment into a complete enterprise landing zone.</li>
+    <li>
+      Expand the design across multiple Availability Zones for improved
+      resilience.
+    </li>
+    <li>
+      Add NAT Gateway connectivity for controlled outbound access from private
+      subnets.
+    </li>
+    <li>
+      Deploy EC2 workloads to validate public and private subnet connectivity.
+    </li>
+    <li>
+      Add VPC Flow Logs and supporting monitoring controls.
+    </li>
+    <li>
+      Strengthen security-group design around specific application traffic
+      patterns.
+    </li>
   </ul>
 </section>
 
