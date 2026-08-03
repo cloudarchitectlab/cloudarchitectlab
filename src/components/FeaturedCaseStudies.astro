@@ -2,30 +2,43 @@
 import CaseStudyCard from "./CaseStudyCard.astro";
 ---
 
-<section class="featured-case-studies">
-  <p>CASE STUDIES</p>
+<section class="featured-case-studies wide-section">
+  <p class="eyebrow">CASE STUDIES</p>
 
   <h2>Featured Architecture</h2>
 
-  <p>
-    Every Cloud Architect Lab case study is designed, implemented,
-    documented, and validated as a reusable engineering reference.
-    Each project explains the architectural decisions, implementation
-    approach, and technical reasoning behind the solution.
+  <p class="section-intro">
+    Each Cloud Architect Lab case study is designed, implemented, documented,
+    and validated as a reusable engineering reference.
   </p>
 
-   <CaseStudyCard
-    id="CAL-001"
-    title="AWS Networking Foundations"
-    category="Cloud Networking"
-    complexity="Foundational"
-    status="Completed"
-    philosophy={[
-      "Infrastructure as Code.",
-      "Architecture as Code."
-    ]}
-    technologies={["AWS", "Terraform", "Amazon VPC", "Mermaid"]}
-    description="Builds a production-inspired AWS networking foundation using Terraform, demonstrating secure VPC design, reusable infrastructure patterns, validation-first engineering, and Architecture as Code."
-    href="/case-studies/aws-networking-foundations"
-  />
+  <div class="case-card-grid">
+    <CaseStudyCard
+      id="CAL-001"
+      title="AWS Networking Foundations"
+      category="Cloud Networking"
+      complexity="Foundational"
+      status="Completed"
+      technologies={["AWS", "Terraform", "Amazon VPC", "Mermaid"]}
+      description="Establishes a production-inspired AWS networking foundation using Terraform, with public and private subnet separation, explicit routing, security boundaries, architecture diagrams, and validation evidence."
+      href="/case-studies/aws-networking-foundations"
+    />
+
+    <CaseStudyCard
+      id="CAL-002"
+      title="Enterprise VPC Peering"
+      category="Enterprise Networking"
+      complexity="Intermediate"
+      status="Completed"
+      technologies={[
+        "AWS",
+        "Terraform",
+        "VPC Peering",
+        "NAT Gateway",
+        "Network ACLs"
+      ]}
+      description="Models a healthcare-oriented enterprise network using separate Shared Services and Patient Platform VPCs, reusable Terraform modules, private peering routes, controlled outbound access, and layered security."
+      href="/case-studies/enterprise-vpc-peering"
+    />
+  </div>
 </section>

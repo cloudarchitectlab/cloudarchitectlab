@@ -1,0 +1,342 @@
+---
+import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
+---
+
+<CaseStudyLayout
+  id="CAL-002"
+  title="Enterprise VPC Peering"
+  category="Enterprise Networking"
+  level="Level 2"
+  status="Completed"
+>
+  <section>
+    <h2>Overview</h2>
+
+    <p>
+      CAL-002 extends the networking foundation established in CAL-001 into a
+      two-VPC enterprise architecture.
+    </p>
+
+    <p>
+      The case study models a fictional healthcare organization that separates
+      shared operational services from a patient-facing application environment
+      processing protected health information.
+    </p>
+
+    <p>
+      The implementation demonstrates reusable Terraform modules, private VPC
+      peering, explicit cross-VPC routes, controlled outbound internet access,
+      layered network security, and validation of the deployed environment
+      against the documented design.
+    </p>
+  </section>
+
+  <section>
+    <h2>Business Scenario</h2>
+
+    <p>
+      The organization requires separate cloud environments for shared
+      management services and patient-platform workloads.
+    </p>
+
+    <p>
+      Management, monitoring, logging, and DNS responsibilities belong in a
+      Shared Services VPC. Patient-facing application components and private
+      PHI-processing workloads belong in a separate Patient Platform VPC.
+    </p>
+
+    <p>
+      The environments must communicate over approved private paths without
+      creating broad trust between the VPCs or exposing private workloads
+      directly to the internet.
+    </p>
+  </section>
+
+  <section>
+    <h2>Conceptual Architecture</h2>
+
+    <p>
+      The conceptual architecture separates business and operational
+      responsibilities before introducing detailed AWS networking components.
+    </p>
+
+    <figure class="architecture-diagram">
+      <img
+        src="/diagrams/cal-002-conceptual-architecture.svg"
+        alt="Conceptual architecture showing a Shared Services VPC connected to a Patient Platform VPC through VPC peering"
+      />
+      <figcaption>
+        Shared Services and Patient Platform responsibilities connected through
+        private VPC peering.
+      </figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Architecture Overview</h2>
+
+    <figure class="architecture-diagram">
+      <img
+        src="/diagrams/cal-002-architecture-overview.svg"
+        alt="CAL-002 architecture showing two VPCs, public and private subnets, NAT Gateways, Internet Gateways, routing, VPC peering, Security Groups, and Network ACL boundaries"
+      />
+      <figcaption>
+        Implemented network boundaries, routing paths, gateways, peering, and
+        layered security controls.
+      </figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Network Design</h2>
+
+    <h3>Shared Services VPC</h3>
+
+    <ul>
+      <li>VPC CIDR: <code>10.10.0.0/16</code></li>
+      <li>Public subnet: <code>10.10.1.0/24</code></li>
+      <li>Private subnet: <code>10.10.11.0/24</code></li>
+      <li>Independent Internet Gateway and NAT Gateway</li>
+      <li>Private management and operational service responsibilities</li>
+    </ul>
+
+    <h3>Patient Platform VPC</h3>
+
+    <ul>
+      <li>VPC CIDR: <code>10.20.0.0/16</code></li>
+      <li>Public subnet: <code>10.20.1.0/24</code></li>
+      <li>Private PHI subnet: <code>10.20.11.0/24</code></li>
+      <li>Independent Internet Gateway and NAT Gateway</li>
+      <li>Controlled public ingress and private application workloads</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>VPC Peering and Routing</h2>
+
+    <p>
+      A VPC Peering Connection provides a private network path between the two
+      VPCs. Peering does not create implicit trust, so routing and security
+      policy remain explicit.
+    </p>
+
+    <ul>
+      <li>
+        Shared Services private route:
+        <code>10.20.11.0/24</code> through the peering connection
+      </li>
+      <li>
+        Patient Platform private route:
+        <code>10.10.11.0/24</code> through the peering connection
+      </li>
+      <li>No broad VPC-to-VPC route using the full VPC CIDR ranges</li>
+      <li>No transitive routing through the peering connection</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Reusable Terraform Design</h2>
+
+    <p>
+      The CAL-001 networking pattern was refactored into a reusable local
+      Terraform module and instantiated twice.
+    </p>
+
+    <ul>
+      <li>VPC</li>
+      <li>Public and private subnets</li>
+      <li>Internet Gateway</li>
+      <li>Elastic IP and NAT Gateway</li>
+      <li>Public and private route tables</li>
+      <li>Subnet-to-route-table associations</li>
+      <li>Common naming and tagging</li>
+    </ul>
+
+    <p>
+      Purpose-specific resources—including VPC peering, peering routes,
+      Security Groups, and the Private PHI Network ACL—remain in the root
+      configuration so the foundational module stays reusable.
+    </p>
+  </section>
+
+  <section>
+    <h2>Security Design</h2>
+
+    <p>
+      Security is applied through multiple independent layers rather than
+      treating any single control as the complete boundary.
+    </p>
+
+    <h3>Security Groups</h3>
+
+    <ul>
+      <li>Public Web Security Group for HTTP and HTTPS ingress</li>
+      <li>
+        Private Application Security Group permitting TCP 8080 from the public
+        application tier
+      </li>
+      <li>
+        Approved management access on TCP 22 from the Shared Services
+        environment
+      </li>
+      <li>Management Security Group for Shared Services workloads</li>
+    </ul>
+
+    <h3>Private PHI Network ACL</h3>
+
+    <ul>
+      <li>TCP 8080 from the Patient Platform public subnet</li>
+      <li>TCP 22 from the Shared Services private subnet</li>
+      <li>Required ephemeral response traffic</li>
+      <li>Outbound HTTPS for approved updates and services</li>
+      <li>Implicit denial of all other traffic</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Controlled Internet Egress</h2>
+
+    <p>
+      Each VPC has an independent NAT Gateway. Private workloads can reach
+      approved internet services for patches, software updates, and package
+      repositories without receiving public IP addresses or routing directly to
+      an Internet Gateway.
+    </p>
+  </section>
+
+  <section>
+    <h2>Validation</h2>
+
+    <p>
+      The final deployment created 38 AWS resources and was validated through:
+    </p>
+
+    <ul>
+      <li><code>terraform fmt -recursive</code></li>
+      <li><code>terraform validate</code></li>
+      <li>Terraform execution-plan review</li>
+      <li>Successful Terraform deployment</li>
+      <li>Post-deployment idempotency verification</li>
+      <li>AWS CLI inspection</li>
+      <li>AWS Management Console inspection</li>
+      <li>VPC, subnet, gateway, routing, and peering verification</li>
+      <li>Security Group and Network ACL verification</li>
+      <li>Successful resource teardown after evidence collection</li>
+    </ul>
+
+    <p>
+      A post-deployment Terraform plan reported no changes, confirming that the
+      deployed environment matched the desired configuration immediately after
+      deployment.
+    </p>
+  </section>
+
+  <section>
+    <h2>Implementation Evidence</h2>
+
+    <figure>
+      <img
+        src="/images/case-studies/cal-002/vpc-peering.png"
+        alt="AWS console showing the active CAL-002 VPC peering connection"
+      />
+      <figcaption>
+        Active VPC Peering Connection between Shared Services and Patient
+        Platform.
+      </figcaption>
+    </figure>
+
+    <figure>
+      <img
+        src="/images/case-studies/cal-002/network-acl-inbound.png"
+        alt="AWS console showing inbound rules for the CAL-002 Private PHI Network ACL"
+      />
+      <figcaption>
+        Private PHI Network ACL inbound rules for application, management, and
+        response traffic.
+      </figcaption>
+    </figure>
+
+    <figure>
+      <img
+        src="/images/case-studies/cal-002/network-acl-outbound.png"
+        alt="AWS console showing outbound rules for the CAL-002 Private PHI Network ACL"
+      />
+      <figcaption>
+        Private PHI Network ACL outbound rules for approved responses and HTTPS
+        egress.
+      </figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Key Engineering Decisions</h2>
+
+    <ul>
+      <li>Reuse the CAL-001 networking foundation through a local module.</li>
+      <li>Keep purpose-specific security outside the generic VPC module.</li>
+      <li>Limit peering routes to approved private subnet CIDRs.</li>
+      <li>Provide independent outbound egress for each VPC.</li>
+      <li>Use defense in depth through routing, Security Groups, and NACLs.</li>
+      <li>Keep private management and PHI workloads without public IPs.</li>
+      <li>Defer multi-AZ and production availability features.</li>
+      <li>Destroy disposable resources after validation.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Lessons Learned</h2>
+
+    <ul>
+      <li>VPC peering creates connectivity, not authorization.</li>
+      <li>Stateless NACL rules require explicit return-path design.</li>
+      <li>
+        Generic infrastructure construction and architecture-specific policy
+        should remain separated.
+      </li>
+      <li>
+        Documentation is most useful when each artifact has a clearly defined
+        engineering responsibility.
+      </li>
+      <li>
+        Strong scope boundaries are necessary to finish, validate, and publish
+        architecture work.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Technology Stack</h2>
+
+    <ul>
+      <li>Amazon Web Services</li>
+      <li>Amazon VPC</li>
+      <li>VPC Peering</li>
+      <li>Internet Gateways</li>
+      <li>NAT Gateways</li>
+      <li>Route Tables</li>
+      <li>Security Groups</li>
+      <li>Network ACLs</li>
+      <li>Terraform</li>
+      <li>Mermaid</li>
+      <li>Git and GitHub</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Repository</h2>
+
+    <p>
+      The complete Terraform implementation, documentation, architecture diagrams,
+and validation evidence for this case study are available on GitHub.
+    </p>
+
+    <a
+      class="button"
+      href="https://github.com/cloudarchitectlab/enterprise-vpc-peering"
+      target="_blank"
+      rel="noreferrer"
+    >
+      View CAL-002 on GitHub →
+    </a>
+  </section>
+</CaseStudyLayout>

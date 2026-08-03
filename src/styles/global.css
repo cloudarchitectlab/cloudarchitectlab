@@ -306,3 +306,226 @@ footer {
   height: 160px;
   width: auto;
 }
+.eyebrow {
+  color: var(--orange);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.hero-intro,
+.section-intro,
+.page-intro > p:last-child {
+  font-size: 1.25rem;
+  line-height: 1.7;
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.button-group .button {
+  margin-top: 24px;
+}
+
+.button-secondary {
+  background: transparent;
+  color: var(--navy);
+  border: 1px solid var(--border);
+}
+
+.button-secondary:hover {
+  color: var(--white);
+  border-color: var(--blue);
+}
+
+.wide-section {
+  max-width: var(--content-width);
+}
+
+.methodology-section {
+  max-width: var(--content-width);
+}
+
+.methodology-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+
+.methodology-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 1.75rem;
+}
+
+.methodology-card h3 {
+  margin-top: 0.75rem;
+}
+
+.methodology-card p {
+  font-size: 1rem;
+  line-height: 1.65;
+  margin-bottom: 0;
+}
+
+.methodology-number {
+  color: var(--orange);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.principles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 2rem;
+}
+
+.principles strong {
+  color: var(--navy);
+}
+
+.principles p {
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+.case-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.case-card-grid .case-card {
+  margin-top: 2rem;
+  height: calc(100% - 2rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.case-card-grid .case-card .button {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+.page-intro {
+  max-width: 880px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 3rem;
+}
+
+.portfolio-philosophy {
+  margin-top: 5rem;
+}
+
+.artifact-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.artifact-list span {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--navy);
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.7rem 1rem;
+}
+
+code {
+  background: #eef2f7;
+  border-radius: 5px;
+  color: var(--navy);
+  font-size: 0.92em;
+  padding: 0.15rem 0.35rem;
+}
+
+figure {
+  margin: 2.5rem 0;
+}
+
+figcaption {
+  color: var(--gray);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .methodology-grid,
+  .case-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .principles {
+    grid-template-columns: 1fr;
+  }
+
+  .brand-logo {
+    height: 110px;
+  }
+
+  header {
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  nav {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 12px 18px;
+  }
+}
+
+@media (max-width: 620px) {
+  main {
+    padding-top: 40px;
+  }
+
+  header {
+    flex-direction: column;
+  }
+
+  nav {
+    justify-content: flex-start;
+  }
+
+  .methodology-grid,
+  .case-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .case-card {
+    padding: 1.5rem;
+  }
+
+  .button-group {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .button-group .button {
+    text-align: center;
+    margin-top: 0;
+  }
+
+  .button-group {
+    margin-top: 24px;
+  }
+}

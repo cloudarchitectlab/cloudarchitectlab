@@ -1,5 +1,70 @@
 ---
-import "../styles/global.css";
+import Layout from "../layouts/Layout.astro";
+import CaseStudyCard from "../components/CaseStudyCard.astro";
 ---
 
-<h1>Coming Soon</h1>
+<Layout title="Case Studies | Cloud Architect Lab">
+  <section class="page-intro">
+    <p class="eyebrow">CLOUD ARCHITECT LAB</p>
+
+    <h1>Architecture Case Studies</h1>
+
+    <p>
+      Practical cloud architectures developed through a repeatable engineering
+      lifecycle. Each case study connects requirements, architecture,
+      implementation, validation, and lessons learned.
+    </p>
+  </section>
+
+  <section class="wide-section">
+    <div class="case-card-grid">
+      <CaseStudyCard
+        id="CAL-001"
+        title="AWS Networking Foundations"
+        category="Cloud Networking"
+        complexity="Foundational"
+        status="Completed"
+        technologies={["AWS", "Terraform", "Amazon VPC", "Mermaid"]}
+        description="Establishes the reusable networking foundation for Cloud Architect Lab through custom VPC design, public and private subnet separation, explicit routing, security controls, and validation."
+        href="/case-studies/aws-networking-foundations"
+      />
+
+      <CaseStudyCard
+        id="CAL-002"
+        title="Enterprise VPC Peering"
+        category="Enterprise Networking"
+        complexity="Intermediate"
+        status="Completed"
+        technologies={[
+          "AWS",
+          "Terraform",
+          "VPC Peering",
+          "NAT Gateway",
+          "Network ACLs"
+        ]}
+        description="Extends the CAL networking foundation into a two-VPC enterprise architecture with reusable modules, private management paths, independent outbound egress, and defense-in-depth controls."
+        href="/case-studies/enterprise-vpc-peering"
+      />
+    </div>
+  </section>
+
+  <section class="portfolio-philosophy">
+    <h2>More Than Working Code</h2>
+
+    <p>
+      Cloud architecture is not complete when resources deploy successfully.
+      Each case study is expected to explain what the system must accomplish,
+      why the design was selected, how it was implemented, how it was
+      validated, and what should improve next.
+    </p>
+
+    <div class="artifact-list">
+      <span>Requirements</span>
+      <span>Architecture</span>
+      <span>Engineering Decisions</span>
+      <span>Infrastructure as Code</span>
+      <span>Validation Evidence</span>
+      <span>Lessons Learned</span>
+    </div>
+  </section>
+</Layout>

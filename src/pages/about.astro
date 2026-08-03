@@ -1,5 +1,93 @@
 ---
-import "../styles/global.css";
+import Layout from "../layouts/Layout.astro";
 ---
 
-<h1>Coming Soon</h1>
+<Layout title="About | Cloud Architect Lab">
+  <section class="page-intro">
+    <p class="eyebrow">ABOUT</p>
+
+    <h1>Building Architecture Through Practice</h1>
+
+    <p>
+      Cloud Architect Lab was created by Rick P., an enterprise technology
+      professional with experience across healthcare IT, enterprise imaging,
+      infrastructure operations, networking, technical consulting, and
+      mission-critical systems.
+    </p>
+  </section>
+
+  <section>
+    <h2>Why Cloud Architect Lab Exists</h2>
+
+    <p>
+      My goal is to develop deeper cloud and AI architecture capability through
+      practical engineering work—not certifications alone.
+    </p>
+
+    <p>
+      Instead of producing disconnected demos, Cloud Architect Lab provides a
+      repeatable structure for understanding requirements, evaluating design
+      tradeoffs, implementing infrastructure, validating outcomes, and
+      communicating architecture clearly.
+    </p>
+  </section>
+
+  <section>
+    <h2>The Engineering Approach</h2>
+
+    <p>
+      Each case study is treated as a small engineering engagement. The work
+      begins with requirements and architecture, continues through
+      implementation and validation, and ends with documented lessons that can
+      improve future designs.
+    </p>
+
+    <ul>
+      <li>Define the problem before choosing services.</li>
+      <li>Model stable architectural concepts before implementation details.</li>
+      <li>Record decisions, alternatives, risks, and deferred capabilities.</li>
+      <li>Implement approved designs through Infrastructure as Code.</li>
+      <li>Validate deployed resources against documented intent.</li>
+      <li>Publish useful lessons rather than accomplishments alone.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Areas of Focus</h2>
+
+    <ul>
+      <li>AWS cloud architecture</li>
+      <li>Enterprise networking</li>
+      <li>Terraform and reusable infrastructure patterns</li>
+      <li>Cloud security and trust boundaries</li>
+      <li>AI-assisted engineering workflows</li>
+      <li>Healthcare and other regulated environments</li>
+      <li>Architecture documentation and Knowledge as Code</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Current Direction</h2>
+
+    <p>
+      Cloud Architect Lab is expanding from foundational AWS networking into
+      reusable cloud platforms, AI architecture, automation, and agent-assisted
+      engineering workflows.
+    </p>
+
+    <div class="button-group">
+      <a class="button" href="/case-studies">
+        Explore Case Studies →
+      </a>
+
+      <a
+        class="button button-secondary"
+        href="https://github.com/cloudarchitectlab"
+        target="_blank"
+        rel="noreferrer"
+      >
+        View GitHub →
+      </a>
+    </div>
+  </section>
+</Layout>
