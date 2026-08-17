@@ -19,14 +19,20 @@ import CaseStudyCard from "../components/CaseStudyCard.astro";
   <section class="wide-section">
     <div class="case-card-grid">
       <CaseStudyCard
-        id="CAL-001"
-        title="AWS Networking Foundations"
-        category="Cloud Networking"
-        complexity="Foundational"
+        id="CAL-003"
+        title="AI Knowledge Assistant"
+        category="Generative AI"
+        complexity="Advanced"
         status="Completed"
-        technologies={["AWS", "Terraform", "Amazon VPC", "Mermaid"]}
-        description="Establishes the reusable networking foundation for Cloud Architect Lab through custom VPC design, public and private subnet separation, explicit routing, security controls, and validation."
-        href="/case-studies/aws-networking-foundations"
+        philosophy={["Knowledge as Code.", "Authority by Design."]}
+        technologies={[
+          "Amazon Bedrock",
+          "Titan Embeddings V2",
+          "S3 Vectors",
+          "Claude Haiku 4.5"
+        ]}
+        description="Implements a governed Retrieval-Augmented Generation architecture with metadata-aware retrieval, grounded responses, citations, adversarial evaluation, and deterministic knowledge-authority controls."
+        href="/case-studies/ai-knowledge-assistant"
       />
 
       <CaseStudyCard
@@ -47,20 +53,14 @@ import CaseStudyCard from "../components/CaseStudyCard.astro";
       />
 
       <CaseStudyCard
-        id="CAL-003"
-        title="AI Knowledge Assistant"
-        category="Generative AI"
-        complexity="Advanced"
+        id="CAL-001"
+        title="AWS Networking Foundations"
+        category="Cloud Networking"
+        complexity="Foundational"
         status="Completed"
-        philosophy={["Knowledge as Code.", "Authority by Design."]}
-        technologies={[
-          "Amazon Bedrock",
-          "Titan Embeddings V2",
-          "S3 Vectors",
-          "Claude Haiku 4.5"
-        ]}
-        description="Implements a governed Retrieval-Augmented Generation architecture with metadata-aware retrieval, grounded responses, citations, adversarial evaluation, and deterministic knowledge-authority controls."
-        href="/case-studies/ai-knowledge-assistant"
+        technologies={["AWS", "Terraform", "Amazon VPC", "Mermaid"]}
+        description="Establishes the reusable networking foundation for Cloud Architect Lab through custom VPC design, public and private subnet separation, explicit routing, security controls, and validation."
+        href="/case-studies/aws-networking-foundations"
       />
     </div>
   </section>

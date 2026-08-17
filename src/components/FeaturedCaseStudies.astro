@@ -14,14 +14,20 @@ import CaseStudyCard from "./CaseStudyCard.astro";
 
   <div class="case-card-grid">
     <CaseStudyCard
-      id="CAL-001"
-      title="AWS Networking Foundations"
-      category="Cloud Networking"
-      complexity="Foundational"
+      id="CAL-003"
+      title="AI Knowledge Assistant"
+      category="Generative AI"
+      complexity="Advanced"
       status="Completed"
-      technologies={["AWS", "Terraform", "Amazon VPC", "Mermaid"]}
-      description="Establishes a production-inspired AWS networking foundation using Terraform, with public and private subnet separation, explicit routing, security boundaries, architecture diagrams, and validation evidence."
-      href="/case-studies/aws-networking-foundations"
+      philosophy={["Knowledge as Code.", "Authority by Design."]}
+      technologies={[
+        "Amazon Bedrock",
+        "Titan Embeddings V2",
+        "S3 Vectors",
+        "Claude Haiku 4.5"
+      ]}
+      description="Builds a governed RAG system over Cloud Architect Lab documentation, with metadata-aware retrieval, grounded responses, citations, adversarial evaluation, and security controls that separate semantic relevance from knowledge authority."
+      href="/case-studies/ai-knowledge-assistant"
     />
 
     <CaseStudyCard
@@ -42,20 +48,14 @@ import CaseStudyCard from "./CaseStudyCard.astro";
     />
 
     <CaseStudyCard
-      id="CAL-003"
-      title="AI Knowledge Assistant"
-      category="Generative AI"
-      complexity="Advanced"
+      id="CAL-001"
+      title="AWS Networking Foundations"
+      category="Cloud Networking"
+      complexity="Foundational"
       status="Completed"
-      philosophy={["Knowledge as Code.", "Authority by Design."]}
-      technologies={[
-        "Amazon Bedrock",
-        "Titan Embeddings V2",
-        "S3 Vectors",
-        "Claude Haiku 4.5"
-      ]}
-      description="Builds a governed RAG system over Cloud Architect Lab documentation, with metadata-aware retrieval, grounded responses, citations, adversarial evaluation, and security controls that separate semantic relevance from knowledge authority."
-      href="/case-studies/ai-knowledge-assistant"
+      technologies={["AWS", "Terraform", "Amazon VPC", "Mermaid"]}
+      description="Establishes a production-inspired AWS networking foundation using Terraform, with public and private subnet separation, explicit routing, security boundaries, architecture diagrams, and validation evidence."
+      href="/case-studies/aws-networking-foundations"
     />
   </div>
 </section>
