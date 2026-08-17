@@ -1,0 +1,252 @@
+---
+import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
+---
+
+<CaseStudyLayout
+  id="CAL-003"
+  title="AI Knowledge Assistant"
+  category="Generative AI"
+  level="Level 3"
+  status="Completed"
+>
+  <section>
+    <h2>Overview</h2>
+
+    <p>
+      CAL-003 builds a governed Retrieval-Augmented Generation system over the
+      Cloud Architect Lab engineering corpus. It retrieves project
+      documentation and standards, generates grounded answers, and returns
+      citations so the evidence behind a response remains inspectable.
+    </p>
+
+    <p>
+      The central engineering problem was not simply finding relevant text. It
+      was ensuring that the system could distinguish semantically relevant
+      content from knowledge that was appropriate to govern an answer.
+    </p>
+  </section>
+
+  <section>
+    <h2>Business Scenario</h2>
+
+    <p>
+      As the Cloud Architect Lab portfolio grows, its requirements, standards,
+      architecture decisions, implementation notes, and validation evidence
+      form an increasingly valuable knowledge base. CAL-003 turns that corpus
+      into a queryable engineering assistant while preserving traceability and
+      authority boundaries.
+    </p>
+
+    <p>
+      The assistant is intentionally read-only. It explains documented
+      knowledge but has no authority to modify infrastructure or perform
+      engineering actions.
+    </p>
+  </section>
+
+  <section>
+    <h2>Architecture</h2>
+
+    <p>
+      Source documents and metadata sidecars are published to Amazon S3. Amazon
+      Bedrock Knowledge Bases manages ingestion and retrieval, Amazon Titan Text
+      Embeddings V2 creates 1,024-dimension vector representations, and Amazon
+      S3 Vectors provides cosine-similarity search and metadata filtering.
+      Claude Haiku 4.5 uses the retrieved evidence to produce grounded answers
+      with source attribution.
+    </p>
+
+    <ul>
+      <li>Amazon S3 for the governed source corpus</li>
+      <li>Amazon Bedrock Knowledge Bases for managed ingestion and retrieval</li>
+      <li>Amazon Titan Text Embeddings V2 for document and query embeddings</li>
+      <li>Amazon S3 Vectors for vector storage and similarity search</li>
+      <li>Claude Haiku 4.5 for grounded response generation</li>
+      <li>Terraform for reproducible infrastructure</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Knowledge Authority</h2>
+
+    <p>
+      Each source carries metadata describing its case study, document type,
+      authority class, lifecycle status, and domain. This keeps authority
+      policy separate from the semantic embedding and allows retrieval to be
+      constrained for a question's intent.
+    </p>
+
+    <p>
+      Requirements and standards can be treated as normative knowledge,
+      architecture decisions as decisional knowledge, and implementation or
+      reflective material as separate supporting classes. Semantic similarity
+      then ranks content only within the eligible authority domain.
+    </p>
+  </section>
+
+  <section>
+    <h2>The Adversarial Finding</h2>
+
+    <p>
+      The evaluation corpus deliberately included an incorrect draft claiming
+      that validation documentation was not required for a CAL case study. It
+      directly contradicted the approved validation standard and was written to
+      closely match the test question.
+    </p>
+
+    <div class="case-details">
+      <div>
+        <span>Incorrect Draft</span>
+        <strong>0.9313</strong>
+      </div>
+      <div>
+        <span>Approved Standard</span>
+        <strong>0.8702</strong>
+      </div>
+      <div>
+        <span>Finding</span>
+        <strong>Similarity ≠ Authority</strong>
+      </div>
+    </div>
+
+    <p>
+      Vector search behaved correctly: the incorrect draft was more
+      semantically similar and ranked first. Claude Haiku 4.5 recognized the
+      conflict during unfiltered generation, but the architecture does not rely
+      on the model to enforce governance. A normative-authority metadata filter
+      excluded the draft before generation.
+    </p>
+
+    <p>
+      <strong>Semantic similarity is not knowledge authority.</strong> When a
+      control can be enforced deterministically during retrieval, it should not
+      depend entirely on model judgment.
+    </p>
+  </section>
+
+  <section>
+    <h2>Grounding, Citations, and Evaluation</h2>
+
+    <p>
+      Evaluation covered the complete RAG path rather than treating successful
+      deployment as proof of system quality.
+    </p>
+
+    <ul>
+      <li>Knowledge publication, ingestion, and vector indexing</li>
+      <li>Semantic retrieval quality and ranking</li>
+      <li>Grounded response generation</li>
+      <li>Source-attribution and citation correctness</li>
+      <li>Metadata-filtered authority boundaries</li>
+      <li>Conflicting-source and adversarial behavior</li>
+      <li>Unsupported questions with insufficient evidence</li>
+    </ul>
+
+    <p>
+      When asked about a nonexistent CAL-008 system, the assistant returned no
+      references and explained that the knowledge base did not contain enough
+      evidence to answer. Refusing an unsupported answer is part of the trust
+      model, not a failure of it.
+    </p>
+  </section>
+
+  <section>
+    <h2>Security Design</h2>
+
+    <p>
+      Security controls protect both the infrastructure and the integrity of
+      the knowledge supplied to the model.
+    </p>
+
+    <ul>
+      <li>S3 Block Public Access, encryption at rest, and versioning</li>
+      <li>Least-privilege IAM for the Bedrock Knowledge Base role</li>
+      <li>Restricted access to the source bucket and S3 Vectors index</li>
+      <li>Embedding-model invocation limited to Titan Text Embeddings V2</li>
+      <li>Bedrock service trust with source-account restriction</li>
+      <li>Controlled corpus scope and metadata-based authority filtering</li>
+      <li>CloudTrail evidence for Bedrock API activity</li>
+      <li>No credentials or secrets stored in the knowledge corpus</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Cost and Operational Fit</h2>
+
+    <p>
+      CAL-003 was designed for a small corpus and intermittent personal-lab
+      usage. S3 Vectors avoided a continuously running vector database while
+      retaining managed Bedrock integration and metadata filtering.
+    </p>
+
+    <p>
+      Observed AWS charges during the primary implementation and validation
+      window were approximately <strong>$0.024</strong>. That figure included
+      limited exploratory model activity outside the final Claude Haiku 4.5
+      path and remained subject to normal AWS billing-estimation delay.
+    </p>
+  </section>
+
+  <section>
+    <h2>Key Engineering Decisions</h2>
+
+    <ul>
+      <li>Use managed RAG services to focus evaluation on system behavior.</li>
+      <li>Select S3 Vectors for the workload's scale, cost, and filtering needs.</li>
+      <li>Keep authority metadata independent from semantic embeddings.</li>
+      <li>Apply deterministic authority constraints before generation.</li>
+      <li>Require citations so generated answers remain inspectable.</li>
+      <li>Validate deployed security controls, not only documented intent.</li>
+      <li>Establish reliable retrieval before granting future AI capabilities.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Lessons Learned</h2>
+
+    <ul>
+      <li>The most relevant document is not necessarily the governing source.</li>
+      <li>Metadata is an architectural control, not merely descriptive context.</li>
+      <li>Model judgment can reinforce governance but should not replace it.</li>
+      <li>Citations and unsupported-answer handling are essential to trust.</li>
+      <li>Evaluation must test retrieval, authority, generation, and security together.</li>
+      <li>A managed RAG system can be meaningfully validated at personal-lab cost.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Technology Stack</h2>
+
+    <ul>
+      <li>Amazon Bedrock Knowledge Bases</li>
+      <li>Amazon Titan Text Embeddings V2</li>
+      <li>Amazon S3 Vectors</li>
+      <li>Amazon S3</li>
+      <li>Claude Haiku 4.5</li>
+      <li>AWS Identity and Access Management</li>
+      <li>AWS CloudTrail</li>
+      <li>Terraform</li>
+      <li>Python and shell automation</li>
+      <li>Git and GitHub</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Repository</h2>
+
+    <p>
+      The complete Terraform implementation, governed corpus workflow,
+      architecture decisions, evaluation evidence, and security documentation
+      are available on GitHub.
+    </p>
+
+    <a
+      class="button"
+      href="https://github.com/cloudarchitectlab/ai-knowledge-assistant"
+      target="_blank"
+      rel="noreferrer"
+    >
+      View CAL-003 on GitHub →
+    </a>
+  </section>
+</CaseStudyLayout>
