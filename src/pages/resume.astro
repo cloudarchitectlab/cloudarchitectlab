@@ -1,5 +1,61 @@
 ---
-import "../styles/global.css";
+import Layout from "../layouts/Layout.astro";
+
+const architectureWork = [
+  { id: "CAL-004", title: "AI Architecture Evaluator", status: "In progress", technologies: "AI Evaluation · Architecture as Code · Governed Knowledge", description: "Evaluating architecture artifacts against governed engineering requirements and standards, including controlled defect testing to determine whether AI systems can identify and explain architectural nonconformance." },
+  { id: "CAL-003", title: "AI Knowledge Assistant", status: "Completed", technologies: "Amazon Bedrock · RAG · S3 Vectors · AI Governance", description: "Designed and implemented a managed AWS Retrieval-Augmented Generation architecture for governed engineering knowledge, including semantic retrieval, metadata-based knowledge authority, grounded generation, retrieval evaluation, and security considerations.", href: "/case-studies/ai-knowledge-assistant" },
+  { id: "CAL-002", title: "Enterprise VPC Peering", status: "Completed", technologies: "AWS Networking · Terraform · Architecture Validation", description: "Designed and implemented a multi-VPC AWS architecture using reusable Terraform modules, private VPC peering, explicit routing, controlled egress, network segmentation, and layered security.", href: "/case-studies/enterprise-vpc-peering" },
+  { id: "CAL-001", title: "AWS Networking Foundations", status: "Completed", technologies: "AWS · Networking · Infrastructure as Code", description: "Built an AWS networking foundation with Terraform, including VPC architecture, public and private subnets, routing, internet connectivity, security controls, architecture documentation, and deployment validation.", href: "/case-studies/aws-networking-foundations" }
+];
 ---
 
-<h1>Coming Soon</h1>
+<Layout title="Resume | Cloud Architect Lab">
+  <section class="page-intro">
+    <p class="eyebrow">RESUME</p>
+    <h1>Cloud & AI Solutions Architecture</h1>
+    <p>Enterprise technology professional with 30+ years of experience across healthcare IT, enterprise infrastructure, systems engineering, technical consulting, implementation, and technical enablement.</p>
+    <p>Currently focused on cloud and applied AI solutions architecture, combining extensive enterprise experience with hands-on engineering in AWS, Terraform, generative AI, RAG, AI evaluation, and architecture automation.</p>
+  </section>
+
+  <section>
+    <h2>Core Capabilities</h2>
+    <div class="capability-grid">
+      <div><h3>Cloud Architecture</h3><p>AWS architecture, VPC networking, private connectivity, routing, security boundaries, availability, cost, and operational considerations.</p></div>
+      <div><h3>Infrastructure as Code</h3><p>Terraform, reusable modules, configuration management, deployment planning, and architecture-to-implementation validation.</p></div>
+      <div><h3>Applied AI</h3><p>Amazon Bedrock, RAG, Knowledge Bases, vector retrieval, grounded generation, metadata authority, AI evaluation, governance, and human-in-the-loop workflows.</p></div>
+      <div><h3>Enterprise Technology</h3><p>Enterprise infrastructure, healthcare technology, imaging systems, data migrations, high availability, disaster recovery, production troubleshooting, and operational support.</p></div>
+      <div><h3>Technical Leadership & Consulting</h3><p>Technical enablement, stakeholder communication, cross-functional collaboration, implementation planning, documentation, training, and knowledge transfer.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Professional Experience</h2>
+    <div class="experience-entry"><h3>Enterprise Technology & Technical Enablement</h3><p class="experience-meta">Senior technical roles · 10+ years</p><p>Supported the deployment, validation, optimization, and modernization of complex enterprise application platforms across customer and cloud-enabled environments, collaborating across engineering, field, operational, and customer-facing organizations.</p></div>
+    <div class="experience-entry"><h3>Healthcare Systems & Technical Consulting</h3><p class="experience-meta">Engineering, administration, migration & consulting roles · 10+ years</p><p>Designed, implemented, administered, migrated, and supported mission-critical healthcare technology environments, including enterprise imaging, PACS and DICOM infrastructure, large-scale data migrations, high availability, and legacy modernization.</p></div>
+    <div class="experience-entry"><h3>Infrastructure, Operations & Systems Engineering</h3><p class="experience-meta">Engineering, management & consulting roles</p><p>Led and supported enterprise infrastructure, networking, data-center, systems-engineering, disaster-recovery, upgrade, consulting, and training initiatives. An early foundation in electronics, field engineering, data acquisition, quality assurance, troubleshooting, and repair continues to influence this systems-oriented approach.</p></div>
+  </section>
+
+  <section class="wide-section">
+    <h2>Selected Architecture Work</h2>
+    <p class="section-intro">Case studies connect each capability to architecture decisions, implementation, and validation evidence.</p>
+    <div class="resume-project-grid">
+      {architectureWork.map((project) => {
+        const content = <><div class="project-heading"><p class="case-id">{project.id}</p><span class:list={["status-badge", { "status-progress": project.status === "In progress" }]}>{project.status}</span></div><h3>{project.title}</h3><p class="project-tech">{project.technologies}</p><p>{project.description}</p>{project.href && <span class="project-link">Read case study →</span>}</>;
+        return project.href ? <a class="resume-project" href={project.href}>{content}</a> : <article class="resume-project resume-project-progress">{content}</article>;
+      })}
+    </div>
+  </section>
+
+  <section>
+    <h2>Certifications & Professional Development</h2>
+    <div class="credential-group"><h3>AWS Certifications</h3><p><strong>AWS Certified AI Practitioner</strong> — 2026<br /><strong>AWS Certified Cloud Practitioner</strong> — 2026</p></div>
+    <div class="credential-group"><h3>Professional Development</h3><p><strong>Terraform Fundamentals</strong> — 2026<br />Hands-on study of Terraform configuration, state, resources, modules, and Infrastructure-as-Code practices.</p><p><strong>AWS Networking Masterclass</strong> — 2026<br />Advanced study of AWS networking architecture, VPC design, routing, connectivity, DNS, security, and hybrid networking.</p></div>
+  </section>
+
+  <section>
+    <h2>Education</h2>
+    <p><strong>Bachelor of Science, Information Technology</strong> — Honors<br /><strong>Associate of Applied Science, Electronics Technology</strong> — Honors</p>
+    <p>Additional formal technical training in electrical and mechanical engineering.</p>
+    <div class="button-group"><a class="button" href="/case-studies">Explore Case Studies →</a><a class="button button-secondary" href="/about">About My Approach →</a><a class="button button-secondary" href="https://github.com/cloudarchitectlab" target="_blank" rel="noreferrer">View GitHub →</a></div>
+  </section>
+</Layout>
