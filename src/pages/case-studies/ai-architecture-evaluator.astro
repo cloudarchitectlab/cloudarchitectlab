@@ -14,16 +14,18 @@ import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
 
     <p>
       CAL-004 explores architecture itself as an input to engineering
-      automation. It evaluates a Mermaid Architecture-as-Code artifact against
-      governed Cloud Architect Lab standards and architectural knowledge, then
-      returns structured findings with evidence and citations.
+      automation through grounded architecture conformance evaluation. It tests
+      whether an AI evaluator can inspect a Mermaid Architecture-as-Code
+      artifact and determine whether it conforms to authoritative Cloud
+      Architect Lab requirements.
     </p>
 
     <p>
-      The evaluator reports what it observes, which governed requirement
-      applies, and why the available evidence passes, fails, or cannot be
-      evaluated. It does not modify architecture, recommend remediation,
-      generate Terraform, or deploy infrastructure.
+      Findings are grounded in retrieved evidence and citations rather than
+      generic model judgment. The evaluator reports what it observes, which
+      governed requirement applies, and why the available evidence passes,
+      fails, or cannot be evaluated. It does not modify architecture, recommend
+      remediation, generate Terraform, or deploy infrastructure.
     </p>
   </section>
 
@@ -31,9 +33,10 @@ import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
     <h2>Project Objective</h2>
 
     <p>
-      Demonstrate that an AI-assisted evaluator can apply authoritative
-      engineering knowledge to a machine-readable architecture artifact in a
-      repeatable, auditable way.
+      Demonstrate that an AI-assisted evaluator can perform grounded
+      architecture conformance evaluation by applying authoritative engineering
+      knowledge to a machine-readable architecture artifact in a repeatable,
+      auditable way.
     </p>
 
     <p>
@@ -90,9 +93,10 @@ import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
 
     <p>
       The initial validation uses the approved CAL-002 Mermaid architecture as
-      a known-good baseline and a deliberately altered copy as a known-bad
-      input. A human-maintained answer key records the expected findings and is
-      kept isolated from the evaluator.
+      a known-good fixture and a deliberately altered copy as a known-bad
+      fixture. Controlled defect injection tests whether the evaluator detects
+      the resulting nonconformance without access to the human-maintained answer
+      key.
     </p>
 
     <ul>
@@ -100,6 +104,7 @@ import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
       <li>False-positive and false-negative review</li>
       <li>Citation correctness</li>
       <li>Appropriate use of not-evaluable findings</li>
+      <li>Adversarial testing with prompt-injection text inside the Mermaid artifact</li>
     </ul>
   </section>
 
