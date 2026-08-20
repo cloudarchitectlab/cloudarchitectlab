@@ -1,0 +1,135 @@
+---
+import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
+---
+
+<CaseStudyLayout
+  id="CAL-004"
+  title="AI Architecture Evaluator"
+  category="AI Evaluation"
+  level="Advanced"
+  status="In progress"
+>
+  <section>
+    <h2>Overview</h2>
+
+    <p>
+      CAL-004 explores architecture itself as an input to engineering
+      automation. It evaluates a Mermaid Architecture-as-Code artifact against
+      governed Cloud Architect Lab standards and architectural knowledge, then
+      returns structured findings with evidence and citations.
+    </p>
+
+    <p>
+      The evaluator reports what it observes, which governed requirement
+      applies, and why the available evidence passes, fails, or cannot be
+      evaluated. It does not modify architecture, recommend remediation,
+      generate Terraform, or deploy infrastructure.
+    </p>
+  </section>
+
+  <section>
+    <h2>Project Objective</h2>
+
+    <p>
+      Demonstrate that an AI-assisted evaluator can apply authoritative
+      engineering knowledge to a machine-readable architecture artifact in a
+      repeatable, auditable way.
+    </p>
+
+    <p>
+      CAL-003 established governed retrieval and knowledge-authority controls.
+      CAL-004 builds on that foundation by asking whether AI can apply the
+      retrieved knowledge to evaluate an architecture artifact.
+    </p>
+  </section>
+
+  <section>
+    <h2>Evaluation Boundary</h2>
+
+    <ul>
+      <li>Mermaid source is the only architecture input.</li>
+      <li>Governed CAL documents provide requirements and decisions.</li>
+      <li>The model compares artifact evidence with retrieved CAL knowledge.</li>
+      <li>Findings include status, severity, evidence, rationale, and citations.</li>
+      <li>The evaluator remains read-only and cannot take engineering action.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Structured Findings</h2>
+
+    <p>
+      The architecture artifact answers what exists. Governed CAL knowledge
+      answers what should exist. The model performs the comparison but is not
+      itself the authority.
+    </p>
+
+    <div class="case-details">
+      <div>
+        <span>PASS</span>
+        <strong>Conforms</strong>
+      </div>
+      <div>
+        <span>FAIL</span>
+        <strong>Violates</strong>
+      </div>
+      <div>
+        <span>NOT_EVALUABLE</span>
+        <strong>Insufficient evidence</strong>
+      </div>
+    </div>
+
+    <p>
+      Severity describes engineering impact rather than model confidence and
+      is limited to low, medium, and high classification metadata.
+    </p>
+  </section>
+
+  <section>
+    <h2>Validation Approach</h2>
+
+    <p>
+      The initial validation uses the approved CAL-002 Mermaid architecture as
+      a known-good baseline and a deliberately altered copy as a known-bad
+      input. A human-maintained answer key records the expected findings and is
+      kept isolated from the evaluator.
+    </p>
+
+    <ul>
+      <li>Detection rate for deliberately introduced defects</li>
+      <li>False-positive and false-negative review</li>
+      <li>Citation correctness</li>
+      <li>Appropriate use of not-evaluable findings</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Current Status</h2>
+
+    <p>
+      Requirements, architecture, AI design, security design, validation
+      boundaries, and engineering decisions are documented. Fixture
+      implementation and end-to-end evaluation remain in progress, so this
+      page describes the approved design and validation intent rather than
+      claiming completed results.
+    </p>
+  </section>
+
+  <section>
+    <h2>Repository</h2>
+
+    <p>
+      The current design documents, requirements, decisions, validation plan,
+      and lessons learned are available on GitHub.
+    </p>
+
+    <a
+      class="button"
+      href="https://github.com/cloudarchitectlab/CAL-004"
+      target="_blank"
+      rel="noreferrer"
+    >
+      View CAL-004 on GitHub →
+    </a>
+  </section>
+</CaseStudyLayout>
