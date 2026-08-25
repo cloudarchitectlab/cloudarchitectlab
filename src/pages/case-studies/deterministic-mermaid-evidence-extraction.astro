@@ -1,0 +1,132 @@
+---
+import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
+---
+
+<CaseStudyLayout
+  id="CAL-005"
+  title="Deterministic Mermaid Evidence Extraction"
+  category="AI Evaluation"
+  level="Advanced"
+  status="Completed"
+>
+  <section>
+    <h2>Overview</h2>
+
+    <p>
+      CAL-005 investigates how Mermaid architecture can be prepared for AI
+      evaluation without allowing a generative model to change the evidence
+      first. It replaces LLM-based translation with deterministic parsing,
+      fact extraction, and controlled plain-English rendering.
+    </p>
+
+    <p>
+      The goal is intentionally narrow: preserve what the architecture artifact
+      says. The preprocessing layer does not interpret intent, correct apparent
+      mistakes, reconcile contradictions, or invent missing relationships.
+    </p>
+  </section>
+
+  <section>
+    <h2>Why the Design Changed</h2>
+
+    <p>
+      CAL-004 exposed a trust boundary before evaluation. When an LLM translated
+      Mermaid into prose, it could normalize contradictory evidence or introduce
+      claims that were not present in the source. A downstream evaluator could
+      then produce a reasonable judgment about an altered artifact.
+    </p>
+
+    <p>
+      CAL-005 moves evidence preparation out of the generative layer. Observable
+      nodes, labels, containment, edges, directions, and relationships are
+      extracted directly and rendered in a stable form for the existing
+      evaluator.
+    </p>
+  </section>
+
+  <section>
+    <h2>Validation Approach</h2>
+
+    <p>
+      A known-good CAL-002 architecture served as the control. Controlled
+      mutations then introduced an incorrect peering-route target, a missing
+      Shared Services peering route, a private route targeting an Internet
+      Gateway, and public SSH exposure.
+    </p>
+
+    <p>
+      Deterministic extraction faithfully preserved each explicit contradiction.
+      When a route was removed, the rendered evidence preserved that absence and
+      did not invent a replacement relationship.
+    </p>
+  </section>
+
+  <section>
+    <h2>Evaluator Findings</h2>
+
+    <p>
+    The same controlled evidence was evaluated with SuperGemma4 E4B, Gemini,
+    and Claude Haiku 4.5. Gemini and Claude Haiku 4.5 passed the known-good
+    control, while SuperGemma4 E4B exceeded its available context window on
+    that 10-retrieval run. Gemini and Claude Haiku 4.5 also detected the
+    explicit contradictory defects, including incorrect route targets and
+    public SSH exposure.
+    </p>
+
+    <p>
+      The missing Shared Services peering route produced a different result: all
+      three evaluators returned <strong>PASS</strong>, even though the evaluation
+      instructions required missing evidence to be classified as{" "}
+      <strong>NOT EVALUABLE</strong>. The source mutation survived preprocessing;
+      the evaluators failed to check that every applicable requirement had
+      supporting evidence.
+    </p>
+  </section>
+
+  <section>
+    <h2>Key Result</h2>
+
+    <p>
+      Evidence preservation and evaluation completeness are separate system
+      properties. Deterministic preprocessing solved the evidence-preservation
+      problem for the tested Mermaid path, but faithful evidence alone did not
+      guarantee complete requirement coverage by the evaluator.
+    </p>
+
+    <p>
+      Explicit contradictions were easier to detect because both the expected
+      and conflicting facts were present. Missing evidence required the evaluator
+      to establish that a requirement applied, search for its implementation,
+      and treat the absence as significant. The tested evaluators did not perform
+      that completeness check reliably.
+    </p>
+  </section>
+
+  <section>
+    <h2>Project Status</h2>
+
+    <p>
+      CAL-005 is complete. The repository includes the deterministic extraction
+      and rendering path, controlled fixtures, evaluator comparisons, validation
+      evidence, design decisions, and lessons learned.
+    </p>
+  </section>
+
+  <section>
+    <h2>Repository</h2>
+
+    <p>
+      The implementation, fixtures, validation results, and supporting design
+      documentation are available on GitHub.
+    </p>
+
+    <a
+      class="button"
+      href="https://github.com/cloudarchitectlab/lambda-to-ai-kb-diagram-evaluation"
+      target="_blank"
+      rel="noreferrer"
+    >
+      View CAL-005 on GitHub →
+    </a>
+  </section>
+</CaseStudyLayout>
