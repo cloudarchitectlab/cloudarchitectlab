@@ -14,6 +14,23 @@ import CaseStudyCard from "./CaseStudyCard.astro";
 
   <div class="case-card-grid">
     <CaseStudyCard
+      id="CAL-005"
+      title="Deterministic Mermaid Evidence Extraction"
+      category="AI Evaluation"
+      complexity="Advanced"
+      status="Completed"
+      philosophy={["Evidence as Data.", "Evaluation by Evidence."]}
+      technologies={[
+        "Mermaid",
+        "Deterministic Parsing",
+        "Controlled Rendering",
+        "AI Evaluation"
+      ]}
+      description="Preserves architecture evidence through deterministic Mermaid extraction, then tests whether multiple AI evaluators can detect explicit defects and missing required relationships."
+      href="/case-studies/deterministic-mermaid-evidence-extraction"
+    />
+
+    <CaseStudyCard
       id="CAL-004"
       title="AI Architecture Evaluator"
       category="AI Evaluation"
@@ -30,49 +47,5 @@ import CaseStudyCard from "./CaseStudyCard.astro";
       href="/case-studies/ai-architecture-evaluator"
     />
 
-    <CaseStudyCard
-      id="CAL-003"
-      title="AI Knowledge Assistant"
-      category="Generative AI"
-      complexity="Advanced"
-      status="Completed"
-      philosophy={["Knowledge as Code.", "Authority by Design."]}
-      technologies={[
-        "Amazon Bedrock",
-        "Titan Embeddings V2",
-        "S3 Vectors",
-        "Claude Haiku 4.5"
-      ]}
-      description="Builds a governed RAG system over Cloud Architect Lab documentation, with metadata-aware retrieval, grounded responses, citations, adversarial evaluation, and security controls that separate semantic relevance from knowledge authority."
-      href="/case-studies/ai-knowledge-assistant"
-    />
-
-    <CaseStudyCard
-      id="CAL-002"
-      title="Enterprise VPC Peering"
-      category="Enterprise Networking"
-      complexity="Intermediate"
-      status="Completed"
-      technologies={[
-        "AWS",
-        "Terraform",
-        "VPC Peering",
-        "NAT Gateway",
-        "Network ACLs"
-      ]}
-      description="Models a healthcare-oriented enterprise network using separate Shared Services and Patient Platform VPCs, reusable Terraform modules, private peering routes, controlled outbound access, and layered security."
-      href="/case-studies/enterprise-vpc-peering"
-    />
-
-    <CaseStudyCard
-      id="CAL-001"
-      title="AWS Networking Foundations"
-      category="Cloud Networking"
-      complexity="Foundational"
-      status="Completed"
-      technologies={["AWS", "Terraform", "Amazon VPC", "Mermaid"]}
-      description="Establishes a production-inspired AWS networking foundation using Terraform, with public and private subnet separation, explicit routing, security boundaries, architecture diagrams, and validation evidence."
-      href="/case-studies/aws-networking-foundations"
-    />
   </div>
 </section>
